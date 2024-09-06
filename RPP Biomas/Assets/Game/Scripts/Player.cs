@@ -21,11 +21,10 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        // Implementa o padrão Singleton
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Garante que o Player não seja destruído ao carregar uma nova cena
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -40,20 +39,27 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // Verifica se o jogador está no chão
+        JumpAndRun();
+    }
+
+    void JumpAndRun()
+    {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-        // Captura as entradas do jogador
         movement.x = Input.GetAxisRaw("Horizontal");
-
-        // Aumenta a velocidade se Shift estiver pressionado
         float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : moveSpeed;
         rb.velocity = new Vector2(movement.x * currentSpeed, rb.velocity.y);
-
-        // Pulo
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Bullet")
+        {
+            Destroy(col.gameObject);
+            GameManager.Instance.LifePlayer--;
         }
     }
 

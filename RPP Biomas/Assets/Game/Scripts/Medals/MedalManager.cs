@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MedalManager : MonoBehaviour
 {
-    public int MedalsCount = 0;
+    public static int MedalsCount = 0;
     public void ADDMedals(int i)
     {
         MedalsCount += i;

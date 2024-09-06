@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,10 +7,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public GameObject pauseMenu;
-    public GameObject levelSelectMenu;
     private bool isPaused = false;
-    private int totalmedals = 0;
-
+    public int totalmedals = 0;
+    public int LevelAtual = 1;
+    private int lastMedalCount = 1;
+    public int LifePlayer = 3;
+    
+    private bool isPlayerDead = false; 
     void Awake()
     {
         if (Instance == null)
@@ -25,12 +29,49 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!isPlayerDead)
         {
-            TogglePause();
-        }
+            totalmedals = MedalManager.MedalsCount;
+            CheckForLevelUp();
 
-        totalmedals = Player.Instance.medalsCollected;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                TogglePause();
+            }
+        }
+        if (LifePlayer <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void CheckForLevelUp()
+    {
+        if (totalmedals > lastMedalCount)
+        {
+            lastMedalCount = totalmedals;
+            LevelAtual++;
+            LoadNextLevel();
+        }
+    }
+
+    private void Die()
+    {
+        if (isPlayerDead) return;
+        isPlayerDead = true;
+        lastMedalCount = totalmedals;
+        SceneManager.LoadScene("Level" + LevelAtual);
+        LifePlayer = 3;
+        Player.Instance.transform.position = new Vector3(0, 0, 0);
+        TogglePause();
+        isPlayerDead = false; 
+    }
+
+    private void LoadNextLevel()
+    {
+        string nextSceneName = "Level" + LevelAtual;
+        SceneManager.LoadScene(nextSceneName);
+        Player.Instance.transform.position = new Vector3(0, 0, 0);
     }
 
     public void TogglePause()
@@ -57,18 +98,5 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
-    }
-
-    public void GoToMainMenu()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void CloseLevelSelect()
-    {
-        Time.timeScale = 1;
-        levelSelectMenu.SetActive(false);
-        pauseMenu.SetActive(true);
     }
 }
