@@ -24,7 +24,7 @@ public class InvisibilityPotion : MonoBehaviour
     void Update()
     {
         // Verifica se a tecla 'Q' foi pressionada e se não está em cooldown
-        if (Input.GetKeyDown(KeyCode.Q) && !onCooldown)
+        if (Input.GetKeyDown(KeyCode.Q) && !onCooldown && GameManager.Instance.hasInvisiblePotion == true)
         {
             ActivateInvisibility();
         }

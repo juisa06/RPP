@@ -12,6 +12,11 @@ public class GameManager : MonoBehaviour
     public int LevelAtual = 1;
     private int lastMedalCount = 1;
     public int LifePlayer = 3;
+    public int playerDamage = 1; 
+    public bool hasInvisiblePotion = false;
+
+    public int[] PedrasRaras;
+
     
     private bool isPlayerDead = false; 
     void Awake()
