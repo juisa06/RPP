@@ -7,20 +7,25 @@ public class EnemyShooter : MonoBehaviour
     public GameObject bulletPrefab; // Prefab do projétil
     public Transform firePoint; // Ponto de origem do projétil
     public LayerMask playerLayer; // Layer do jogador
-    public float speed = 2f; // Velocidade de movimento lateral
-    public int maxHealth = 3; // Vida máxima do inimigo
+    public float speed = 2f; // Velocidade de movimento
+    public float moveDistance = 5f; // Distância ajustável de movimento
+    private int maxHealth = 5; // Vida máxima do inimigo
 
     private Transform player;
     private Rigidbody2D rb; // Referência ao Rigidbody2D do inimigo
     private float nextFireTime = 0f;
-    private float movementDirection = 1f; // Direção do movimento lateral (1 para direita, -1 para esquerda)
+    private Vector2 initialPosition; // Posição inicial do inimigo
+    private Vector2 targetPosition; // Posição atual do alvo
     private int currentHealth; // Vida atual do inimigo
+    private bool movingRight = true; // Direção do movimento
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>(); // Obter o componente Rigidbody2D
         currentHealth = maxHealth; // Definir a vida inicial do inimigo
+        initialPosition = transform.position; // Salva a posição inicial do inimigo
+        targetPosition = initialPosition + Vector2.right * moveDistance; // Define o ponto alvo inicial
     }
 
     void Update()
@@ -32,22 +37,30 @@ public class EnemyShooter : MonoBehaviour
             if (distanceToPlayer <= shootRange && Time.time >= nextFireTime)
             {
                 Shoot();
-                nextFireTime = Time.time + 1f / fireRate; // Calcula o próximo tempo de tiro
+                nextFireTime = Time.time + 1.5f / fireRate; // Calcula o próximo tempo de tiro
             }
 
-            // Movimentação lateral
-            MoveSideways();
+            Move();
         }
     }
 
-    void MoveSideways()
+    void Move()
     {
-        rb.velocity = new Vector2(speed * movementDirection, rb.velocity.y); // Define a velocidade do Rigidbody2D
+        // Move o inimigo em direção à posição alvo
+        Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
+        rb.velocity = direction * speed;
 
-        // Inverte a direção do movimento ao atingir a borda do caminho (exemplo simples)
-        if (transform.position.x > 5f || transform.position.x < -5f)
+        // Verifica se o inimigo chegou ao ponto alvo
+        if (Vector2.Distance(transform.position, targetPosition) < 0.1f)
         {
-            movementDirection *= -1f; // Inverte a direção
+            // Inverte a direção do movimento
+            movingRight = !movingRight;
+
+            // Define o novo ponto alvo com base na direção
+            if (movingRight)
+                targetPosition = initialPosition + Vector2.right * moveDistance;
+            else
+                targetPosition = initialPosition + Vector2.left * moveDistance;
         }
     }
 
@@ -58,7 +71,7 @@ public class EnemyShooter : MonoBehaviour
         if (rbBullet != null)
         {
             // Calcula a direção para o tiro com base na posição do jogador
-            Vector2 direction = (player.position - transform.position).normalized;
+            Vector2 direction = (player.position - firePoint.position).normalized;
             rbBullet.velocity = direction * 10f; // Define a velocidade do projétil
         }
     }
@@ -68,20 +81,21 @@ public class EnemyShooter : MonoBehaviour
         return (player.gameObject.layer == Mathf.Log(playerLayer.value, 2)); // Verifica se o jogador está na Layer correta
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage()
     {
-        currentHealth -= damage; // Reduz a vida do inimigo
+        currentHealth -= GameManager.Instance.playerDamage;
 
         if (currentHealth <= 0)
         {
             Die();
         }
     }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "BuletPlayer")
         {
-            TakeDamage(1);
+            TakeDamage();
             Destroy(col.gameObject);
         }
     }
@@ -95,5 +109,10 @@ public class EnemyShooter : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, shootRange);
+        Gizmos.color = Color.blue;
+
+        // Desenha a área de movimento do inimigo
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * moveDistance);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.left * moveDistance);
     }
 }

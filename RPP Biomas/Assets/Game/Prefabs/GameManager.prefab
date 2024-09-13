@@ -378,12 +378,12 @@ GameObject:
   - component: {fileID: 791035003769250969}
   - component: {fileID: 1338188348564867684}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Image Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9155590911317488619
 RectTransform:
   m_ObjectHideFlags: 0
@@ -442,6 +442,51 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &5847314784173669979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6414393286451032229}
+  - component: {fileID: 8603211411041860323}
+  m_Layer: 0
+  m_Name: AzuliAjudaManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6414393286451032229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5847314784173669979}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6041151770069906490}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8603211411041860323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5847314784173669979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e21e3846723a548892f8d387cf2e57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerText: {fileID: 67606019336166942}
 --- !u!1 &5986072130128060875
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,9 +517,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8698449519012363913}
   - {fileID: 4012968097797285758}
   - {fileID: 5682005097039380370}
+  - {fileID: 6414393286451032229}
   - {fileID: 2531928943101242212}
   - {fileID: 4614911686953403717}
   m_Father: {fileID: 0}
@@ -492,9 +537,90 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 4995831534715524016}
-  totalmedals: 0
   LevelAtual: 1
   LifePlayer: 3
+  playerDamage: 1
+  hasInvisiblePotion: 0
+  PedrasRaras: 
+--- !u!1 &6221793894609142336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7964849722242499339}
+  - component: {fileID: 8893125482383682285}
+  - component: {fileID: 67606019336166942}
+  m_Layer: 5
+  m_Name: Azuli Avisos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7964849722242499339
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6221793894609142336}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4012968097797285758}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -408.87, y: 429.91486}
+  m_SizeDelta: {x: -817.75, y: -859.8319}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8893125482383682285
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6221793894609142336}
+  m_CullTransparentMesh: 1
+--- !u!114 &67606019336166942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6221793894609142336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 51
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 63
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
 --- !u!1 &6842529017238784136
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,6 +697,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9155590911317488619}
+  - {fileID: 7964849722242499339}
   m_Father: {fileID: 6041151770069906490}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -774,65 +901,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1001 &1019389654218987129
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6041151770069906490}
-    m_Modifications:
-    - target: {fileID: 8544032992816294128, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.4173589
-      objectReference: {fileID: 0}
-    - target: {fileID: 8544032992816294128, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.7047508
-      objectReference: {fileID: 0}
-    - target: {fileID: 8544032992816294128, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.08929024
-      objectReference: {fileID: 0}
-    - target: {fileID: 8544032992816294128, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8544032992816294128, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8544032992816294128, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8544032992816294128, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8544032992816294128, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8544032992816294128, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8544032992816294128, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9099525087131634611, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-      propertyPath: m_Name
-      value: Azuli
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
---- !u!4 &8698449519012363913 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8544032992816294128, guid: 9eb6cdbc7a72e4441b9cb4ac3f5dbdd5, type: 3}
-  m_PrefabInstance: {fileID: 1019389654218987129}
-  m_PrefabAsset: {fileID: 0}

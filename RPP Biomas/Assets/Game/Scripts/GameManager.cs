@@ -8,12 +8,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject pauseMenu;
     private bool isPaused = false;
-    public int totalmedals = 0;
+    private int totalmedals = 0;
     public int LevelAtual = 1;
-    private int lastMedalCount = 1;
+    private int lastMedalCount = 0;
     public int LifePlayer = 3;
     public int playerDamage = 1; 
     public bool hasInvisiblePotion = false;
+    public bool Estouinvisivel = false;
 
     public int[] PedrasRaras;
 
@@ -67,7 +68,6 @@ public class GameManager : MonoBehaviour
         lastMedalCount = totalmedals;
         SceneManager.LoadScene("Level" + LevelAtual);
         LifePlayer = 3;
-        Player.Instance.transform.position = new Vector3(0, 0, 0);
         TogglePause();
         isPlayerDead = false; 
     }
@@ -76,7 +76,6 @@ public class GameManager : MonoBehaviour
     {
         string nextSceneName = "Level" + LevelAtual;
         SceneManager.LoadScene(nextSceneName);
-        Player.Instance.transform.position = new Vector3(0, 0, 0);
     }
 
     public void TogglePause()
