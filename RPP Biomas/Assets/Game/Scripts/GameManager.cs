@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,14 +11,12 @@ public class GameManager : MonoBehaviour
     public int LevelAtual = 1;
     private int lastMedalCount = 0;
     public int LifePlayer = 3;
-    public int playerDamage = 1; 
+    public int playerDamage = 1;
     public bool hasInvisiblePotion = false;
     public bool Estouinvisivel = false;
 
-    public int[] PedrasRaras;
+    private bool isPlayerDead = false;
 
-    
-    private bool isPlayerDead = false; 
     void Awake()
     {
         if (Instance == null)
@@ -33,11 +30,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        InitializeCollectiblesForCurrentLevel();
+    }
+
     void Update()
     {
         if (!isPlayerDead)
         {
-            totalmedals = MedalManager.MedalsCount;
+            totalmedals = MedalManager.MedalsCount; // Certifique-se de que MedalManager está corretamente implementado
             CheckForLevelUp();
 
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -45,9 +47,32 @@ public class GameManager : MonoBehaviour
                 TogglePause();
             }
         }
+
         if (LifePlayer <= 0)
         {
             Die();
+        }
+    }
+
+    private void InitializeCollectiblesForCurrentLevel()
+    {
+        // Defina os itens da fase atual
+        string[] phaseItems = GetCurrentLevelCollectibles();
+        CollectiblesManager.Instance.InitializePhaseItems(phaseItems);
+    }
+
+    private string[] GetCurrentLevelCollectibles()
+    {
+        // Exemplo de como você pode definir os itens da fase atual
+        switch (LevelAtual)
+        {
+            case 1:
+                return new string[] { "Animal1", "RareStone1", "PuzzlePiece1" };
+            case 2:
+                return new string[] { "Animal2", "RareStone2", "PuzzlePiece2" };
+            // Continue para os outros níveis
+            default:
+                return new string[] { };
         }
     }
 
@@ -66,6 +91,12 @@ public class GameManager : MonoBehaviour
         if (isPlayerDead) return;
         isPlayerDead = true;
         lastMedalCount = totalmedals;
+
+        if (CollectiblesManager.Instance != null)
+        {
+            CollectiblesManager.Instance.ResetCurrentPhaseCollectibles(); // Apenas reseta os itens da fase atual
+        }
+
         SceneManager.LoadScene("Level" + LevelAtual);
         LifePlayer = 3;
         TogglePause();
@@ -76,6 +107,7 @@ public class GameManager : MonoBehaviour
     {
         string nextSceneName = "Level" + LevelAtual;
         SceneManager.LoadScene(nextSceneName);
+        InitializeCollectiblesForCurrentLevel(); // Inicializa os colecionáveis do próximo nível
     }
 
     public void TogglePause()

@@ -19,7 +19,6 @@ public class TriggerManager : MonoBehaviour
 
     private void HandleTriggerEnter(string triggerName)
     {
-        // Atualize o texto com base no nome do trigger
         switch (triggerName)
         {
             case "Pule":
@@ -29,15 +28,17 @@ public class TriggerManager : MonoBehaviour
             case "Enemy":
                 triggerText.text = "há um inimigo a frente";
                 break;
-
-            // Adicione mais casos para outros triggers conforme necessário
+            case "PlataformFall":
+                triggerText.text = "Essa Plataforma cai! seja rapido!";
+                break;
+            case "MovePlataform":
+                triggerText.text = "Cuidado Com essa Plataforma que se move";
+                break;
 
             default:
                 triggerText.text = "Jogador entrou em um trigger desconhecido: " + triggerName;
                 break;
         }
-
-        // Opcional: Limpar o texto após alguns segundos
         StartCoroutine(ClearTextAfterDelay(3f));
     }
 

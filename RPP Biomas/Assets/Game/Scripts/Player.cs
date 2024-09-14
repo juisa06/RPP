@@ -131,6 +131,10 @@ public class Player : MonoBehaviour
             GameManager.Instance.LifePlayer++;
             Destroy(col.gameObject);
         }
+        if (col.gameObject.CompareTag("Morte"))
+        {
+            GameManager.Instance.LifePlayer= 0;
+        }
     }
 
     public void TakeDamage(int Dmg)
