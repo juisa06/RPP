@@ -31,7 +31,6 @@ public class CheckpointManager : MonoBehaviour
 
     private void SaveCheckpointPosition(Vector3 checkpointPosition)
     {
-        // Salva a posição do checkpoint
         lastCheckpointPosition = checkpointPosition;
         Debug.Log("Checkpoint salvo na posição: " + lastCheckpointPosition);
     }

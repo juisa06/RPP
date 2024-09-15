@@ -13,10 +13,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Aciona o evento com a posição do checkpoint
             CheckPointObserver.TriggerCheckpoint(transform.position);
-
-            // Desativa o colisor para evitar múltiplos triggers
             checkpointCollider.enabled = false;
         }
     }
