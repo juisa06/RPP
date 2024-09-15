@@ -228,7 +228,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Resume
+  m_Text: Pres ESC Continue
 --- !u!1 &2084792191423699610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,9 +1086,6 @@ MonoBehaviour:
   playerDamage: 1
   hasInvisiblePotion: 0
   Estouinvisivel: 0
-  animalColetado: 0
-  pedraRaraColetada: 0
-  quebraCabecaColetado: 0
 --- !u!1 &6114774844984541809
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,8 +1252,8 @@ GameObject:
   - component: {fileID: 4407834154950727781}
   - component: {fileID: 7386677635469811120}
   m_Layer: 5
-  m_Name: Azuli Avisos (1)
-  m_TagString: Untagged
+  m_Name: AvisosDeColeta
+  m_TagString: ColeteiTudo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1866,6 +1863,8 @@ MonoBehaviour:
   - {fileID: 6114774844984541809}
   - {fileID: 8233429027377817558}
   - {fileID: 8030972139497844792}
+  collectedItems: []
+  currentPhaseItems: []
 --- !u!1 &7942054166273258210
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,9 +34,6 @@ public class CheckpointManager : MonoBehaviour
         // Salva a posição do checkpoint
         lastCheckpointPosition = checkpointPosition;
         Debug.Log("Checkpoint salvo na posição: " + lastCheckpointPosition);
-
-        // Desinscreve-se do evento após passar pela primeira vez
-        CheckPointObserver.OnCheckpointTriggerEvent -= SaveCheckpointPosition;
     }
 
     public Vector3 GetLastCheckpointPosition()
