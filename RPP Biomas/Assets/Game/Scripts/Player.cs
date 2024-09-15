@@ -23,13 +23,13 @@ public class Player : MonoBehaviour
     private float groundCheckRadius = 0.2f;
     private bool canShoot = true;
     
-    private Animator animator; // Referência ao Animator
-    private bool facingRight = true; // Indica a direção que o jogador está virado
+    private Animator animator; 
+    private bool facingRight = true;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>(); // Inicializa o Animator
+        animator = GetComponent<Animator>(); 
     }
 
     void Update()
@@ -43,11 +43,7 @@ public class Player : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         movement = Input.GetAxis("Horizontal");
         float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : moveSpeed;
-
-        // Movimentação do jogador
         rb.velocity = new Vector2(movement * currentSpeed, rb.velocity.y);
-
-        // Verifica se o jogador deve virar
         if (movement > 0 && !facingRight)
         {
             Flip();
@@ -99,7 +95,7 @@ public class Player : MonoBehaviour
     {
         facingRight = !facingRight;
         Vector3 scale = transform.localScale;
-        scale.x *= -1; // Inverte a direção
+        scale.x *= -1; 
         transform.localScale = scale;
     }
 
@@ -133,7 +129,7 @@ public class Player : MonoBehaviour
         }
         if (col.gameObject.CompareTag("Morte"))
         {
-            GameManager.Instance.LifePlayer= 0;
+            GameManager.Instance.LifePlayer = 0;
         }
     }
 

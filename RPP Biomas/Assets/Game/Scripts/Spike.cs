@@ -13,11 +13,9 @@ public class Spike : MonoBehaviour
             Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
             if (playerRb != null)
             {
-                // Calcula a direção oposta ao ponto de contato
+                GameManager.Instance.LifePlayer--;
                 Vector2 pushDirection = (collision.transform.position - transform.position).normalized;
-
-                // Aplica o impulso na direção oposta
-                playerRb.velocity = Vector2.zero; // Zera a velocidade atual do jogador antes de aplicar a nova força
+                playerRb.velocity = Vector2.zero;
                 playerRb.AddForce(pushDirection * pushForce, ForceMode2D.Impulse);
             }
         }
