@@ -30,11 +30,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        InitializeCollectiblesForCurrentLevel();
-    }
-
     void Update()
     {
         if (!isPlayerDead)
@@ -52,12 +47,6 @@ public class GameManager : MonoBehaviour
         {
             Die();
         }
-    }
-
-    private void InitializeCollectiblesForCurrentLevel()
-    {
-        string[] phaseItems = GetCurrentLevelCollectibles();
-        CollectiblesManager.Instance.InitializePhaseItems(phaseItems);
     }
 
     private string[] GetCurrentLevelCollectibles()
@@ -90,11 +79,6 @@ public class GameManager : MonoBehaviour
         isPlayerDead = true;
         lastMedalCount = totalmedals;
 
-        if (CollectiblesManager.Instance != null)
-        {
-            CollectiblesManager.Instance.ResetCurrentPhaseCollectibles(); 
-        }
-
         // Mover o jogador para o último checkpoint salvo
         Transform playerTransform = GameObject.FindWithTag("Player").transform;
         playerTransform.position = CheckpointManager.Instance.GetLastCheckpointPosition();
@@ -107,7 +91,6 @@ public class GameManager : MonoBehaviour
     {
         string nextSceneName = "Level" + LevelAtual;
         SceneManager.LoadScene(nextSceneName);
-        InitializeCollectiblesForCurrentLevel();
     }
 
     public void TogglePause()

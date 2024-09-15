@@ -5,34 +5,45 @@ using UnityEngine;
 public class CollectibleItem : MonoBehaviour
 {
     public string itemType; // Pode ser "Animal", "RareStone", "PuzzlePiece"
-    public string itemName;
+    public int itemIndex; // Índice do item coletável (0-5)
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            // Encontra o GameManager para obter a fase atual
-            GameManager gameManager = FindObjectOfType<GameManager>();
-            if (gameManager == null)
+            // Encontra o CollectibleManager
+            CollectibleManager collectibleManager = FindObjectOfType<CollectibleManager>();
+            if (collectibleManager == null)
             {
-                Debug.LogError("GameManager não encontrado!");
+                Debug.LogError("CollectibleManager não encontrado!");
                 return;
             }
 
-            // Encontra o CollectiblesManager
-            CollectiblesManager collectiblesManager = FindObjectOfType<CollectiblesManager>();
-            if (collectiblesManager == null)
-            {
-                Debug.LogError("CollectiblesManager não encontrado!");
-                return;
-            }
-
-            // Coleta o item, passando o tipo e nome
-            collectiblesManager.CollectItem(itemType, itemName);
-            Debug.Log($"{itemType} Coletado: {itemName}");
+            // Coleta o item
+            CollectItem(collectibleManager);
+            Debug.Log($"{itemType} Coletado no índice: {itemIndex}");
 
             // Destrói o item após a coleta
             Destroy(gameObject);
+        }
+    }
+
+    private void CollectItem(CollectibleManager collectibleManager)
+    {
+        switch (itemType)
+        {
+            case "RareStone":
+                collectibleManager.CollectRareStone(itemIndex);
+                break;
+            case "PuzzlePiece":
+                collectibleManager.CollectPuzzlePiece(itemIndex);
+                break;
+            case "Animal":
+                collectibleManager.CollectRareAnimal(itemIndex);
+                break;
+            default:
+                Debug.LogWarning($"Tipo de item desconhecido: {itemType}");
+                break;
         }
     }
 }

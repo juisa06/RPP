@@ -1,117 +1,74 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CollectiblesManager : MonoBehaviour
+public class CollectibleManager : MonoBehaviour
 {
-    public static CollectiblesManager Instance { get; private set; }
+    // Referências aos objetos Canvas
+    public Image[] rareStonesImages;
+    public Image[] puzzlePiecesImages;
+    public Image[] rareAnimalsImages;
 
-    public GameObject[] animalImages;   // Array de GameObjects para Animais no Canvas
-    public GameObject[] stoneImages;    // Array de GameObjects para Pedras no Canvas
-    public GameObject[] puzzleImages;   // Array de GameObjects para Quebra-Cabeça no Canvas
-
-    public List<string> collectedItems = new List<string>();    // Lista de itens coletados
-    public List<string> currentPhaseItems = new List<string>(); // Itens específicos da fase atual
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    // Contadores dos itens coletados
+    private int[] collectedRareStones = new int[6];
+    private int[] collectedPuzzlePieces = new int[6];
+    private int[] collectedRareAnimals = new int[6];
 
     private void Start()
     {
-        SetAllImagesInactive(); // Assegura que todas as imagens estejam inativas no início
+        // Inicializa os contadores e esconde as imagens
+        InitializeImages(rareStonesImages);
+        InitializeImages(puzzlePiecesImages);
+        InitializeImages(rareAnimalsImages);
     }
 
-    private void Update()
+    private void InitializeImages(Image[] images)
     {
-        // Atualiza as imagens dos itens colecionados em tempo real
-        foreach (var itemName in collectedItems)
+        foreach (Image image in images)
         {
-            if (currentPhaseItems.Contains(itemName)) 
+            image.gameObject.SetActive(false);
+        }
+    }
+
+    public void CollectRareStone(int index)
+    {
+        if (IsIndexValid(index, collectedRareStones.Length))
+        {
+            collectedRareStones[index]++;
+            CheckUnlock(rareStonesImages, collectedRareStones);
+        }
+    }
+
+    public void CollectPuzzlePiece(int index)
+    {
+        if (IsIndexValid(index, collectedPuzzlePieces.Length))
+        {
+            collectedPuzzlePieces[index]++;
+            CheckUnlock(puzzlePiecesImages, collectedPuzzlePieces);
+        }
+    }
+
+    public void CollectRareAnimal(int index)
+    {
+        if (IsIndexValid(index, collectedRareAnimals.Length))
+        {
+            collectedRareAnimals[index]++;
+            CheckUnlock(rareAnimalsImages, collectedRareAnimals);
+        }
+    }
+
+    private bool IsIndexValid(int index, int length)
+    {
+        return index >= 0 && index < length;
+    }
+
+    private void CheckUnlock(Image[] images, int[] collectedItems)
+    {
+        for (int i = 0; i < collectedItems.Length; i++)
+        {
+            if (collectedItems[i] > 0)
             {
-                UpdateImage(itemName); // Ativa as imagens coletadas
+                images[i].gameObject.SetActive(true);
             }
-        }
-    }
-
-    public void InitializePhaseItems(string[] phaseItems)
-    {
-        currentPhaseItems.Clear();
-        currentPhaseItems.AddRange(phaseItems); // Adiciona os itens da fase atual
-    }
-
-    public void CollectItem(string itemType, string itemName)
-    {
-        if (!collectedItems.Contains(itemName))
-        {
-            collectedItems.Add(itemName);
-            currentPhaseItems.Remove(itemName); // Remove o item da lista da fase atual
-        }
-    }
-
-    public void ResetCurrentPhaseCollectibles()
-    {
-        foreach (var item in currentPhaseItems)
-        {
-            collectedItems.Remove(item); // Remove os itens da fase atual
-        }
-
-        SetAllImagesInactive(); // Desativa todas as imagens no Canvas
-    }
-
-    private void UpdateImage(string itemName)
-    {
-        // Verifica qual tipo de item foi coletado e ativa a imagem correspondente
-        if (itemName.StartsWith("Animal"))
-        {
-            ShowSpecificImage(animalImages, itemName);
-        }
-        else if (itemName.StartsWith("RareStone"))
-        {
-            ShowSpecificImage(stoneImages, itemName);
-        }
-        else if (itemName.StartsWith("PuzzlePiece"))
-        {
-            ShowSpecificImage(puzzleImages, itemName);
-        }
-    }
-
-    // Ativa apenas a imagem correspondente ao item coletado, com base no nome
-    private void ShowSpecificImage(GameObject[] images, string itemName)
-    {
-        foreach (var image in images)
-        {
-            if (image.name == itemName)  // Comparar pelo nome do GameObject no Canvas
-            {
-                image.SetActive(true);  // Ativar a imagem quando o item é coletado
-                break;
-            }
-        }
-    }
-
-    private void SetAllImagesInactive()
-    {
-        foreach (var image in animalImages)
-        {
-            image.SetActive(false);
-        }
-
-        foreach (var image in stoneImages)
-        {
-            image.SetActive(false);
-        }
-
-        foreach (var image in puzzleImages)
-        {
-            image.SetActive(false);
         }
     }
 }
