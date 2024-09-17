@@ -54,16 +54,16 @@ public class Player : MonoBehaviour
         }
         if (movement != 0)
         {
-            animator.SetInteger("Transition", 1); // Correndo
+            animator.SetInteger("Transitioon", 1); // Correndo
         }
         else
         {
-            animator.SetInteger("Transition", 0); // Parado
+            animator.SetInteger("Transitioon", 0); // Parado
         }
         
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            animator.SetInteger("Transition", 2); // Pulando
+            animator.SetInteger("Transitioon", 2); // Pulando
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
