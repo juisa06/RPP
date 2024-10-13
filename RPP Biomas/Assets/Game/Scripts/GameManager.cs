@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
             totalmedals = MedalManager.MedalsCount; 
             CheckForLevelUp();
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 TogglePause();
             }

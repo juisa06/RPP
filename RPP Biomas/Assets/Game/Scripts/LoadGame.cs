@@ -10,4 +10,15 @@ public class LoadGame : MonoBehaviour
     {
         SceneManager.LoadScene("Level1");
     }
+    
+    public void LoadInfo()
+    {
+        SceneManager.LoadScene("Info");
+    }
+    
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
+
