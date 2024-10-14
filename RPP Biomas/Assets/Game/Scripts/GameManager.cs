@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI; 
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -6,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public GameObject pauseMenu;
+    public Text lifeText;  // Variável para o texto da vida
+
     private bool isPaused = false;
     private int totalmedals = 0;
     public int LevelAtual = 1;
@@ -34,7 +37,7 @@ public class GameManager : MonoBehaviour
     {
         if (!isPlayerDead)
         {
-            totalmedals = MedalManager.MedalsCount; 
+            totalmedals = MedalManager.MedalsCount;
             CheckForLevelUp();
 
             if (Input.GetKeyDown(KeyCode.P))
@@ -46,6 +49,17 @@ public class GameManager : MonoBehaviour
         if (LifePlayer <= 0)
         {
             Die();
+        }
+
+        UpdateLifeText();  // Atualizar o texto da vida na tela
+    }
+
+    // Atualiza o texto de vidas na tela
+    private void UpdateLifeText()
+    {
+        if (lifeText != null)
+        {
+            lifeText.text = "Vida: " + LifePlayer.ToString();
         }
     }
 
@@ -118,4 +132,4 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
     }
-}
+}                                              

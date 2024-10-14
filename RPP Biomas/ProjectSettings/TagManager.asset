@@ -11,6 +11,7 @@ TagManager:
   - DamageIncrease
   - HealthPickup
   - ColeteiTudo
+  - Morte
   layers:
   - Default
   - TransparentFX
